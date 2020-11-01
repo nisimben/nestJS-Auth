@@ -11,7 +11,7 @@ export class UserService {
             lastName:'test',
             userName:'test',
             passWord:'test',
-            token:'my-token'
+            
             
         }
     ]
@@ -19,7 +19,7 @@ export class UserService {
     
     
     async getAllUsers():Promise<UserEntity[]>{
-        console.log(this.users);
+        
         
         return this.users;
     }
@@ -31,7 +31,7 @@ export class UserService {
         const newUser:UserEntity=new UserEntity();
         newUser.id = 2;
         newUser.firstName = 'nisim';
-        newUser.firstName = 'ben-shmuel';
+        newUser.lastName = 'ben-shmuel';
         newUser.userName = 'nisim@gmail.com';
         newUser.passWord = '123456';
         this.users.push(newUser)
@@ -39,5 +39,6 @@ export class UserService {
         
        return newUser
    }
+
 
 }
