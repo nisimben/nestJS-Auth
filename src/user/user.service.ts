@@ -9,10 +9,17 @@ export class UserService {
             id:1,
             firstName:'test',
             lastName:'test',
-            userName:'test',
-            passWord:'test',
+            username:'test',
+            password:'test',
             
             
+        },
+        {
+            id : 2,
+            firstName : 'nisim',
+            lastName : 'ben-shmuel',
+            username : 'nisim@gmail.com',
+            password : '123456'
         }
     ]
     
@@ -32,10 +39,10 @@ export class UserService {
         newUser.id = 2;
         newUser.firstName = 'nisim';
         newUser.lastName = 'ben-shmuel';
-        newUser.userName = 'nisim@gmail.com';
-        newUser.passWord = '123456';
+        newUser.username = 'nisim@gmail.com';
+        newUser.password = '123456';
         this.users.push(newUser)
-        console.log(newUser);
+        // console.log(newUser);
         
        return newUser
    }

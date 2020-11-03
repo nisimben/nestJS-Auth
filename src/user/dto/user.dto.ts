@@ -10,8 +10,8 @@ export class CreateUserDto{
 }
 export interface CreateUserAuthDto{ 
     id:number
-    userName:string
-    passWord?:string
+    username:string
+    password?:string
     firstName:string
     lastName:string
     token:string
