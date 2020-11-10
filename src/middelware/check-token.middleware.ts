@@ -1,24 +1,23 @@
-import { Injectable, NestMiddleware, Body, UseFilters, HttpStatus, HttpException } from '@nestjs/common';
+import { Injectable, NestMiddleware, Body, UseFilters, HttpException } from '@nestjs/common';
 import { Request,Response, response } from 'express'
 import { AuthService } from 'src/user/auth/auth.service';
 import { HttpExeptionFilter } from 'src/filters/http-exeption.filter';
-import { verify  } from 'jsonwebtoken';
+// import { verify  } from 'jsonwebtoken';
+import { JwtService } from '@nestjs/jwt'
 
 
 @Injectable()
 @UseFilters(new HttpExeptionFilter())
 export class CheckTokenMiddleware implements NestMiddleware {
   
-  constructor(private authSrv:AuthService){}
+  constructor(private jwtSrv:JwtService){}
   
   
   use(req: Request, res: Response, next: Function) {
-    console.log(req.headers.authorization);
-    
     let token = req.headers.authorization.split(' ')[1];
-
+    let userId = this.jwtSrv.verify(token)
+    console.log("userID: ", userId);
     
-    let userId = verify(token,process.env.secret)
     if (userId) {
         
       next();

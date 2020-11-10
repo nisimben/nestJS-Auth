@@ -11,6 +11,8 @@ export class UserService {
             lastName:'test',
             username:'test',
             password:'test',
+            role:''
+
             
             
         },
@@ -19,7 +21,9 @@ export class UserService {
             firstName : 'nisim',
             lastName : 'ben-shmuel',
             username : 'nisim@gmail.com',
-            password : '123456'
+            password : '123456',
+            role:''
+
         }
     ]
     
@@ -41,8 +45,10 @@ export class UserService {
         newUser.lastName = 'ben-shmuel';
         newUser.username = 'nisim@gmail.com';
         newUser.password = '123456';
+        newUser.role = '';
+        
         this.users.push(newUser)
-        // console.log(newUser);
+        
         
        return newUser
    }

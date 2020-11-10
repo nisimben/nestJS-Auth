@@ -1,8 +1,9 @@
-import { Injectable, ForbiddenException, UseFilters } from '@nestjs/common';
+import { Injectable, UseFilters } from '@nestjs/common';
 import { UserService } from '../user.service';
 import { CreateUserAuthDto } from '../dto/user.dto';
-import { sign } from 'jsonwebtoken';
-import { HttpExeptionFilter } from 'src/filters/http-exeption.filter';
+// import { sign } from 'jsonwebtoken';
+import {  JwtService } from '@nestjs/jwt';
+
 
 
 
@@ -10,27 +11,32 @@ import { HttpExeptionFilter } from 'src/filters/http-exeption.filter';
 @Injectable()
 export class AuthService {
     private newAuthUser: CreateUserAuthDto
-    public secretToken;
-
-    constructor(private userSrv: UserService) {
-
+    
+    constructor(public userSrv:UserService,private jwtSrv:JwtService){
+        
     }
     @UseFilters()
     async userAuth(username, password) {
         let res =  await this.userSrv.getAllUsers()
     
         for (let i of res) {
-            if (i.password == password && i.username == username) {
+            let id = i.id
+            let myusername = i.username
+            if (i.password == password && myusername == username) {
                 //Create Secret Token
-                this.secretToken = sign({ userId: i.id }, process.env.secret)
+               
+                
+                const secretToken = this.jwtSrv.sign({ id })
+                console.log("new token: ",secretToken);
                 
                 this.newAuthUser = {
                     id: i.id,
-                    username: i.username,
+                    username: myusername,
                     firstName: i.firstName,
                     lastName: i.lastName,
-                    token: this.secretToken
+                    token: secretToken
                 }
+                console.log(this.newAuthUser);
                 
                 return this.newAuthUser
             }
